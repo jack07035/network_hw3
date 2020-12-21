@@ -169,6 +169,20 @@ void getdata(u_char *arg, const struct pcap_pkthdr *header, const u_char *conten
 
 int main(int argc,char *argv[])
 {
+    int i =0;
+    for(i=0;i<argc;i++)
+    {
+        if(strcmp(argv[i],"-help")==0)
+        {
+            printf("\n-n    \tto see first n data\n");
+            printf("-t    \tonly see tcp data\n");
+            printf("-u    \tonly see udp data\n");
+            printf("-small\tonly see data length less than \n");
+            printf("-big  \tonly see data length big than \n\n");
+            exit(1);
+        }
+    }
+
     memset(data,0,sizeof(data));
 
     char errbuf[PCAP_ERRBUF_SIZE];
@@ -208,10 +222,10 @@ int main(int argc,char *argv[])
         printf("%s opened success !\n", input);
     }
 
-    int lnum=-1,i=0;
+    int lnum=-1;
 
     for(i=0;i<argc;i++)
-    {//printf("hi\n");
+    {
         if(strcmp(argv[i],"-n")==0)
         {
             lnum = atoi(argv[i+1]);
